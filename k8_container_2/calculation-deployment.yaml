@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calculation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: calculation
+  template:
+    metadata:
+      labels:
+        app: calculation
+    spec:
+      containers:
+        - name: calculation
+          image: northamerica-northeast1-docker.pkg.dev/$PROJECT_ID/k8-assignment/calculator:latest
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: data-volume
+              mountPath: /divyank_PV_dir
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: divyank-pvc

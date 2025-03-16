@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gatekeeper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gatekeeper
+  template:
+    metadata:
+      labels:
+        app: gatekeeper
+    spec:
+      containers:
+        - name: gatekeeper
+          image: northamerica-northeast1-docker.pkg.dev/$PROJECT_ID/k8-assignment/gatekeeper:latest
+          ports:
+            - containerPort: 6000
+          volumeMounts:
+            - name: data-volume
+              mountPath: /divyank_PV_dir
+          env:
+            - name: CONTAINER2_URL
+              value: http://calculation-service.default.svc.cluster.local:3000
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: divyank-pvc

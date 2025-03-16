@@ -1,0 +1,32 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    script: |
+      docker build -t northamerica-northeast1-docker.pkg.dev/$PROJECT_ID/k8-assignment/gatekeeper:latest .
+
+  - name: "grc.io/cloud-builders/gcloud"
+    args:
+      - "containers"
+      - "cluster"
+      - "get-credentials"
+      - "KubernetesAssignment"
+      - "--zone=us-central1-c"
+      - "--project=$PROJECT_ID"
+
+  - name: "grc.io/cloud-builders/kubectl"
+    args: ["delete", "-f", "gatekeeper-deployment.yaml"]
+    env:
+      - "CLOUDSDK_COMPUTE_REGION=us-central1-c"
+      - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
+      - "CLOUDSDK_CONTAINER_CLUSTER=KubernetesAssignment"
+      - "PROJECT_ID=$PROJECT_ID"
+
+  - name: "grc.io/cloud-builders/kubectl"
+    args: ["apply", "-f", "gatekeeper-deployment.yaml"]
+    env:
+      - "CLOUDSDK_COMPUTE_REGION=us-central1-c"
+      - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
+      - "CLOUDSDK_CONTAINER_CLUSTER=KubernetesAssignment"
+      - "PROJECT_ID=$PROJECT_ID"
+
+images:
+  - "northamerica-northeast1-docker.pkg.dev/$PROJECT_ID/k8-assignment/gatekeeper:latest"

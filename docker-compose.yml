@@ -1,0 +1,22 @@
+services:
+  k8_gatekeeper:
+    image: kubernetes-gatekeeper
+    build:
+      context: ./k8_container_1
+      dockerfile: base1.Dockerfile
+    container_name: k8_gatekeeper
+    volumes:
+      - ".:/data"
+    ports:
+      - "6000:6000"
+
+  k8_calculator:
+    image: kubernetes-calculator
+    build:
+      context: ./k8_container_2
+      dockerfile: base2.Dockerfile
+    container_name: k8_calculator
+    volumes:
+      - ".:/data"
+    ports:
+      - "3000:3000"

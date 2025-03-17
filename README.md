@@ -21,7 +21,7 @@ The system follows a microservices architecture that separates functionalities i
 - [Express](https://expressjs.com/) - Node.js web application framework
 - [Axios](https://www.npmjs.com/package/axios) - Axios
 - [Docker](https://docs.docker.com/) - Platform designed to help developers build, share, and run container applications
-- [Google Kubernetes Engine (GKE)] (https://cloud.google.com/kubernetes-engine?hl=en) - Kubernetes cluster management
+- [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine?hl=en) - Kubernetes cluster management
 
 ## Deployment
 
